@@ -28,22 +28,6 @@ void generate_flowers(vector<int>& vector) {
     }
 }
 
-// функция для красивого вывода времени
-char* formatTime(long ms) {
-    long sec = ms / 1000;
-    ms %= 1000;
-    long min = sec / 60;
-    sec %= 60;
-    long hr = min / 60;
-    min %= 60;
-
-    string result =
-        to_string(min) + "m " +
-        to_string(sec) + "s " +
-        to_string(ms) + "m" + "s";
-    return &result[0];
-}
-
 // вывод сада в данный поток
 void garden_to_stream(const vector<int>& vector, ostream& stream) {
     stream << "Garden: ";
@@ -97,11 +81,11 @@ void* funcFlower(void* param) {
         
 
         // уведомление об операции
-        printf("%s ---> Flower %d: has changed its state #%i = %i \n", formatTime(clock()), fNum, index, garden[index]);
+        printf("Flower %d: has changed its state #%i = %i \n", fNum, index, garden[index]);
 
         if (write_to_file) {
             FILE* output = fopen(&output_name[0], "a");
-            fprintf(output, "%s ---> Flower %d: has changed its state #%i = %i \n", formatTime(clock()), fNum, index, garden[index]);
+            fprintf(output, "Flower %d: has changed its state #%i = %i \n", fNum, index, garden[index]);
             fclose(output);
         }
 
@@ -126,13 +110,11 @@ void* funcGardener(void* param) {
             if (garden[i] == 2) {
 
                 // уведомление об операции
-                printf("%s ---> Gardener %d: watering flower #%i \n",
-                    formatTime(clock()), gNum, i);
+                printf("Gardener %d: watering flower #%i \n", gNum, i);
 
                 if (write_to_file) {
                     FILE* output = fopen(&output_name[0], "a");
-                    fprintf(output, "% s---> Gardener % d: watering flower # %i \n",
-                        formatTime(clock()), gNum, i);
+                    fprintf(output, "Gardener % d: watering flower # %i \n", gNum, i);
                     fclose(output);
                 }
 
